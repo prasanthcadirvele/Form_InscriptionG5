@@ -1,0 +1,11 @@
+
+###> symfony/framework-bundle ###
+groupesTesteurs/.env.local
+groupesTesteurs/.env
+groupesTesteurs/.env.local.php
+groupesTesteurs/.env.*.local
+groupesTesteurs/config/secrets/prod/prod.decrypt.private.php
+groupesTesteurs/public/bundles/
+groupesTesteurs/var/
+groupesTesteurs/vendor/
+###< symfony/framework-bundle ###
