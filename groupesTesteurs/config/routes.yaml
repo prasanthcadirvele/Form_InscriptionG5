@@ -4,13 +4,4 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-app_login:
-    path: /login
-    controller: App\Controller\authenticationController::login
 
-app_logout:
-    path: /logout
-
-app_register:
-    path: /register
-    controller: App\Controller\authenticationController::register
