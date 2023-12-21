@@ -5,6 +5,12 @@ namespace App\Entity;
 use App\Repository\EnseignantRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Again use the class diagram, the Enseignant class must be an extension of the User class so the Enseignant
+ * class inherits all the attributes and methods from Parent class => Use Objected oriented programming
+ * The only reason to user symphony is to have Object oriented programming
+ */
+
 #[ORM\Entity(repositoryClass: EnseignantRepository::class)]
 class Enseignant
 {

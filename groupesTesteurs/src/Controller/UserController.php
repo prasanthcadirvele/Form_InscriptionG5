@@ -20,6 +20,18 @@ class UserController extends AbstractController
     }
 
     /**
+     * TODO : Why are you returning only returning id and email here ?
+     * if the getAllUsers is used only by Admins then there should be an user Verification step added
+     * => Check if the type of user is admin
+     * Then you have to return all Users.
+     * Also there shouldn't be a function for all users, it should be extract enseignants and extract admins
+     * both functions must be accessed only by admins
+     * Either you have to add a filter or you have to do manual verification for each function
+     * if you choose to do it for each function then you have to have if(user type == admin) {} else [throw forbidden error }
+     * Forbidden error => return access failed
+     */
+
+    /**
      * @Route("/users", methods={"GET"}, name="get_all_users")
      */
     public function getAllUsers(): JsonResponse
@@ -41,6 +53,11 @@ class UserController extends AbstractController
 
         return $this->json($formattedUsers);
     }
+
+    /**
+     * TODO : ERROR the below function is getUserById, so you are supposed to pass the id as the parameter and then use
+     * user repository to extract user by id then return the user
+     */
 
     /**
      * @Route("/users/{id}", methods={"GET"}, name="get_user_by_id")

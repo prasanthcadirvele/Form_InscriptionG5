@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8334ef90-6817-466a-ad55-5a6467482b35" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/symfony.lock" afterDir="false" />
+    <list default="true" id="8334ef90-6817-466a-ad55-5a6467482b35" name="Changes" comment="userController skeleton">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Entity/Enseignant.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Entity/Enseignant.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Repository/EnseignantRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Repository/EnseignantRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +94,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "dev",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -118,11 +119,25 @@
       <option name="presentableId" value="Default" />
       <updated>1702647557379</updated>
       <workItem from="1702647558760" duration="618000" />
-      <workItem from="1702900874164" duration="1074000" />
+      <workItem from="1702900874164" duration="2541000" />
+      <workItem from="1703176093480" duration="2663000" />
     </task>
+    <task id="LOCAL-00001" summary="userController skeleton">
+      <option name="closed" value="true" />
+      <created>1702902081029</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702902081029</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="userController skeleton" />
+    <option name="LAST_COMMIT_MESSAGE" value="userController skeleton" />
   </component>
 </project>
