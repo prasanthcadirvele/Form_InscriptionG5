@@ -7,6 +7,15 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @method Enseignant|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Enseignant|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Enseignant[]    findAll()
+ * @method Enseignant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * There is no need to have all these methods in the annotations
+ */
+
+/**
  * @extends ServiceEntityRepository<Enseignant>
  *
  * @method Enseignant|null find($id, $lockMode = null, $lockVersion = null)
