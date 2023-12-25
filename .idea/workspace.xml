@@ -6,10 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="8334ef90-6817-466a-ad55-5a6467482b35" name="Changes" comment="userController skeleton">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Controller/EnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Controller/EnseignantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Controller/UserController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Controller/enseignantRespExample.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Entity/Enseignant.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Entity/Enseignant.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Entity/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Repository/EnseignantRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Repository/EnseignantRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Repository/UserRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Repository/enseignantRespExample.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +23,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/groupesTesteurs/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -86,23 +93,26 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2Za5sOIqzP6MsVfRq3sqmNtyEi4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -120,7 +130,9 @@
       <updated>1702647557379</updated>
       <workItem from="1702647558760" duration="618000" />
       <workItem from="1702900874164" duration="2541000" />
-      <workItem from="1703176093480" duration="2663000" />
+      <workItem from="1703176093480" duration="3480000" />
+      <workItem from="1703386549975" duration="13719000" />
+      <workItem from="1703526101563" duration="4164000" />
     </task>
     <task id="LOCAL-00001" summary="userController skeleton">
       <option name="closed" value="true" />
@@ -135,6 +147,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="userController skeleton" />

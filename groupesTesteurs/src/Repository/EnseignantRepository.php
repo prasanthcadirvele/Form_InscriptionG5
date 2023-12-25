@@ -1,28 +1,12 @@
 <?php
 
+
 namespace App\Repository;
 
-use App\Entity\Enseignant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Enseignant;
 
-/**
- * @method Enseignant|null find($id, $lockMode = null, $lockVersion = null)
- * @method Enseignant|null findOneBy(array $criteria, array $orderBy = null)
- * @method Enseignant[]    findAll()
- * @method Enseignant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- *
- * There is no need to have all these methods in the annotations
- */
-
-/**
- * @extends ServiceEntityRepository<Enseignant>
- *
- * @method Enseignant|null find($id, $lockMode = null, $lockVersion = null)
- * @method Enseignant|null findOneBy(array $criteria, array $orderBy = null)
- * @method Enseignant[]    findAll()
- * @method Enseignant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class EnseignantRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -30,28 +14,74 @@ class EnseignantRepository extends ServiceEntityRepository
         parent::__construct($registry, Enseignant::class);
     }
 
-//    /**
-//     * @return Enseignant[] Returns an array of Enseignant objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function save(Enseignant $enseignant): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($enseignant);
+        $entityManager->flush();
+    }
 
-//    public function findOneBySomeField($value): ?Enseignant
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function updateIsValidatedStatus(int $id): void
+    {
+        $entityManager = $this->getEntityManager();
+        $enseignant = $this->find($id);
+
+        if ($enseignant) {
+            $enseignant->setIsValidated(true);
+            $entityManager->flush();
+        }
+    }
+
+    public function updateEnseignant(int $id, Enseignant $updatedEnseignant): void
+    {
+        $entityManager = $this->getEntityManager();
+        $enseignant = $this->find($id);
+
+        if ($enseignant) {
+            // Update properties as needed
+            $enseignant->setFirstName($updatedEnseignant->getFirstName());
+            $enseignant->setLastName($updatedEnseignant->getLastName());
+            $enseignant->setEmail($updatedEnseignant->getEmail());
+
+            $entityManager->flush();
+        }
+    }
+
+    public function deleteEnseignant(int $id): void
+    {
+        $entityManager = $this->getEntityManager();
+        $enseignant = $this->find($id);
+
+        if ($enseignant) {
+            $entityManager->remove($enseignant);
+            $entityManager->flush();
+        }
+    }
+
+    public function getAllEnseignants(): array
+    {
+        return $this->findAll();
+    }
+
+    public function findByEtablissementId($etablissementId): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.etablissement', 'etablissement')
+            ->andWhere('etablissement.id = :id')
+            ->setParameter('id', $etablissementId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByEtablissementUAI($etablissementUAI): array
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.etablissement', 'etablissement')
+            ->andWhere('etablissement.uai = :uai')
+            ->setParameter('uai', $etablissementUAI)
+            ->getQuery()
+            ->getResult();
+    }
+
 }
+

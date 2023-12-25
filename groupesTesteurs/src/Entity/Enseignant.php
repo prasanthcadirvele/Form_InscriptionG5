@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EnseignantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,67 +14,33 @@ use Doctrine\ORM\Mapping as ORM;
  */
 
 #[ORM\Entity(repositoryClass: EnseignantRepository::class)]
-class Enseignant
-{
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+class Enseignant extends User {
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nom = null;
+    protected $user_type = 'enseignant';
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $prenom = null;
+    #[ORM\OneToOne(mappedBy: 'enseignant', targetEntity: Etablissement::class, fetch: 'EAGER')]
+    private Etablissement $etablissement;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $email = null;
+    #[ORM\OneToMany(mappedBy: 'enseignant', targetEntity: Registration::class, fetch: 'EAGER')]
+    private Collection $registrations;
 
-    public function getId(): ?int
+    public function __construct()
     {
-        return $this->id;
+        $this->registrations = new ArrayCollection();
     }
 
-    public function setId(int $id): static
+    public function getEtablissement(): Etablissement
     {
-        $this->id = $id;
-
-        return $this;
+        return $this->etablissement;
     }
 
-    public function getNom(): ?string
+    public function setEtablissement(Etablissement $etablissement): void
     {
-        return $this->nom;
+        $this->etablissement = $etablissement;
     }
 
-    public function setNom(?string $nom): static
+    public function getRegistrations(): Collection
     {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(?string $prenom): static
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): static
-    {
-        $this->email = $email;
-
-        return $this;
+        return $this->registrations;
     }
 }
