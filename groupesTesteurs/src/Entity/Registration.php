@@ -29,4 +29,84 @@ class Registration
      #[ORM\Column(type: "boolean")]
      private $isRegistrationValidated;
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroupeTesteurs()
+    {
+        return $this->groupeTesteurs;
+    }
+
+    /**
+     * @param mixed $groupeTesteurs
+     */
+    public function setGroupeTesteurs($groupeTesteurs): void
+    {
+        $this->groupeTesteurs = $groupeTesteurs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnseignant()
+    {
+        return $this->enseignant;
+    }
+
+    /**
+     * @param mixed $enseignant
+     */
+    public function setEnseignant($enseignant): void
+    {
+        $this->enseignant = $enseignant;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegistrationDate()
+    {
+        return $this->registrationDate;
+    }
+
+    /**
+     * @param mixed $registrationDate
+     */
+    public function setRegistrationDate($registrationDate): void
+    {
+        $this->registrationDate = $registrationDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsRegistrationValidated()
+    {
+        return $this->isRegistrationValidated;
+    }
+
+    /**
+     * @param mixed $isRegistrationValidated
+     */
+    public function setIsRegistrationValidated($isRegistrationValidated): void
+    {
+        $this->isRegistrationValidated = $isRegistrationValidated;
+    }
+
 }

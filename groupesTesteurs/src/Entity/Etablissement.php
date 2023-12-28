@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Entity;
+use App\Repository\EtablissementRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: EtablissementRepository::class)]
 class Etablissement
 {
     #[ORM\Id]
@@ -27,6 +30,19 @@ class Etablissement
 
     #[ORM\Column(type: "integer")]
     private ?int $etablissementCodePostal = null;
+
+    #[ORM\OneToMany(targetEntity: Enseignant::class, mappedBy: "etablissement")]
+    private Collection $enseignants;
+
+    public function getEnseignants(): Collection
+    {
+        return $this->enseignants;
+    }
+
+    public function setEnseignants(Collection $enseignants): void
+    {
+        $this->enseignants = $enseignants;
+    }
 
     public function getId(): ?int
     {

@@ -16,17 +16,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 abstract class User
 {
-
-
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy:'AUTO')]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
@@ -37,6 +35,32 @@ abstract class User
 
     #[ORM\Column]
     private ?bool $isValidated = False;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = 'default';
+
+    #[ORM\Column(type: "datetime_immutable", nullable: true)]
+    private ?\DateTimeImmutable $tokenExpiresAt = null;
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): void
+    {
+        $this->token = $token;
+    }
+
+    public function getTokenExpiresAt(): ?\DateTimeImmutable
+    {
+        return $this->tokenExpiresAt;
+    }
+
+    public function setTokenExpiresAt(?\DateTimeImmutable $tokenExpiresAt): void
+    {
+        $this->tokenExpiresAt = $tokenExpiresAt;
+    }
 
     public function getId(): ?int
     {

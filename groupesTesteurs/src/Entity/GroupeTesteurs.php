@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupeTesteurRepository;
+use App\Repository\GroupeTesteursRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use DateTime;
 
-#[ORM\Entity(repositoryClass: GroupeTesteurRepository::class)]
+#[ORM\Entity(repositoryClass: GroupeTesteursRepository::class)]
 class GroupeTesteurs
 {
     #[ORM\Id]
