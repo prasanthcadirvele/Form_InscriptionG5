@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8334ef90-6817-466a-ad55-5a6467482b35" name="Changes" comment="userController skeleton">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groupesTesteurs/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/groupesTesteurs/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Controller/EnseignantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Controller/EnseignantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Controller/UserController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Controller/enseignantRespExample.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Entity/Enseignant.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Entity/Enseignant.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Repository/EnseignantRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/groupesTesteurs/src/Repository/EnseignantRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Repository/UserRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/groupesTesteurs/src/Repository/enseignantRespExample.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +81,18 @@
       <path value="$PROJECT_DIR$/groupesTesteurs/vendor/doctrine/doctrine-migrations-bundle" />
       <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/doctrine-bridge" />
       <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/stopwatch" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/form" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/password-hasher" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/security-csrf" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/groupesTesteurs/vendor/symfony/security-http" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -132,7 +138,8 @@
       <workItem from="1702900874164" duration="2541000" />
       <workItem from="1703176093480" duration="3480000" />
       <workItem from="1703386549975" duration="13719000" />
-      <workItem from="1703526101563" duration="4164000" />
+      <workItem from="1703526101563" duration="4359000" />
+      <workItem from="1703664080792" duration="20265000" />
     </task>
     <task id="LOCAL-00001" summary="userController skeleton">
       <option name="closed" value="true" />
