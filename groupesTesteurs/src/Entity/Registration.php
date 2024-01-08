@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Registration
 {
      #[ORM\Id]
-     #[ORM\GeneratedValue]
+     #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
      #[ORM\Column(type: "integer")]
      private $id;
 

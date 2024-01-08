@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class EtablissementController
@@ -23,15 +24,17 @@ class EtablissementController extends AbstractController
 {
 
     private EtablissementRepository $etablissementRepository;
+    private $serializer;
 
     /**
      * EtablissementController constructor.
      *
      * @param EtablissementRepository $etablissementRepository
      */
-    public function __construct(EtablissementRepository $etablissementRepository)
+    public function __construct(EtablissementRepository $etablissementRepository, SerializerInterface $serializer)
     {
         $this->etablissementRepository = $etablissementRepository;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -66,7 +69,15 @@ class EtablissementController extends AbstractController
             return $this->json(['message' => 'Etablissement for provided uai does not exist'], Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->json(['etablissement' => $etablissement], Response::HTTP_OK);
+        $etablissement->getEnseignants();
+
+        $jsonContent = $this->serializer->serialize($etablissement, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            },
+        ]);
+
+        return $this->json($jsonContent, Response::HTTP_OK);
 
         // TODO : RETURN TO ETABLISSEMENT PAGE
     }

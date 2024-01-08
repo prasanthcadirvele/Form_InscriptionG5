@@ -8,6 +8,7 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
     orm:
+        class_metadata_factory_name: Doctrine\ORM\Mapping\ClassMetadataFactory
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
         report_fields_where_declared: true

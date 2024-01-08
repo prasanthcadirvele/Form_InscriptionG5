@@ -60,11 +60,16 @@ class EnseignantController extends AbstractController
 
         $this->enseignantRepository->save($enseignant);
 
+<<<<<<< HEAD
         //TO DO : Send registration email
         $this->sendRegistrationEmail($enseignant, $data['email']);
 
         return $this->json(['message' => 'Registration email sent'], Response::HTTP_OK);
     }   
+=======
+        return $this->json(['message' => 'Registration email sent'], Response::HTTP_OK);
+    }
+>>>>>>> b178c6c6392be670ed45ad220dad5df7c8685ff7
 
     #[Route("/set-password/{token}", name: "set_password", methods: "POST")]
     // TO DO : Method not working
