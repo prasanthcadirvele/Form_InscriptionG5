@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Enseignant;
 use App\Repository\EtablissementRepository;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Repository\EnseignantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,22 +14,26 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 #[Route("/enseignant")]
 class EnseignantController extends AbstractController
 {
     private $enseignantRepository;
     private $etablissementRepository;
-    private UserPasswordHasherInterface $passwordHasher;
+    private $mailer;
 
-    public function __construct(EnseignantRepository $enseignantRepository, EtablissementRepository $etablissementRepository)
-    {
+    public function __construct(
+        EnseignantRepository $enseignantRepository,
+        EtablissementRepository $etablissementRepository,
+        MailerInterface $mailer
+    ) {
         $this->enseignantRepository = $enseignantRepository;
         $this->etablissementRepository = $etablissementRepository;
+        $this->mailer = $mailer;
     }
 
-    public function validateEnseignantEntry($data){
-        return True;
+    public function validateEnseignantEntry($data)
+    {
+        return true;
     }
 
     #[Route("/", name: "enseignant_add", methods: "POST")]
@@ -59,9 +65,21 @@ class EnseignantController extends AbstractController
 
         $this->enseignantRepository->save($enseignant);
 
-        // TODO Send registration email
+        // Send registration email
+        $this->sendRegistrationEmail($enseignant, $data['email']);
 
         return $this->json(['message' => 'Registration email sent'], Response::HTTP_OK);
+    }
+
+    private function sendRegistrationEmail(Enseignant $enseignant, string $toEmail): void
+    {
+        $email = (new Email())
+            ->from('your_email@example.com') // email here
+            ->to($toEmail)
+            ->subject('Confirmation of Registration/')
+            ->html($this->renderView('emails/registration.html.twig', ['enseignant' => $enseignant]));
+
+        $this->mailer->send($email);
     }
 
     #[Route("/set-password/{token}", name: "set_password", methods: "POST")]
