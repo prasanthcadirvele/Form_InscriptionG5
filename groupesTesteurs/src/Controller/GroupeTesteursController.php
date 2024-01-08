@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\GroupeTesteurs;
 use App\Repository\GroupeTesteursRepository;
 use DateTime;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +19,8 @@ use Symfony\Component\Routing\Attribute\Route;
  * JWT authentication is assumed to be implemented, and user access to endpoints is based on user types defined as
  * global constants. User type information is extracted from the JWT token in the request header.
  */
-#[Route("/groupeTesteurs/")]
-class GroupeTesteursController
+#[Route("/groupeTesteurs")]
+class GroupeTesteursController extends AbstractController
 {
 
     private GroupeTesteursRepository $groupeTesteursRepository;
@@ -37,7 +38,7 @@ class GroupeTesteursController
      * Get all GroupeTesteurs.
      * @return JsonResponse
      */
-    #[Route("list", methods:"GET")]
+    #[Route("/list", methods:"GET")]
     public function getAllGroupeTesteurs(): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -54,7 +55,7 @@ class GroupeTesteursController
      * @param int $id
      * @return JsonResponse
      */
-    #[Route("id/{id}", methods:"GET")]
+    #[Route("/id/{id}", methods:"GET")]
     public function getGroupeTesteursById(int $id): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -76,7 +77,7 @@ class GroupeTesteursController
      * @param Request $request
      * @return JsonResponse
      */
-    #[Route("", methods:"POST")]
+    #[Route("/", methods:"POST")]
     public function createGroupeTesteurs(Request $request): JsonResponse
     {
         // TODO: Implement JWT validation for user type

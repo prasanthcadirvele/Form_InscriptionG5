@@ -12,4 +12,22 @@ class GroupeTesteursRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, GroupeTesteurs::class);
     }
+
+    public function save(GroupeTesteurs $groupeTesteurs): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($groupeTesteurs);
+        $entityManager->flush();
+    }
+
+    public function update(int $id, GroupeTesteurs $newGroupeTesteur) : void
+    {
+        $groupeTesteur = $this->find($id);
+
+        if ($groupeTesteur) {
+            $groupeTesteur->setGroupTesteurLabel($newGroupeTesteur->getGroupTesteurLabel());
+            $groupeTesteur->setGroupTesteurDescription($newGroupeTesteur->getGroupTesteurDescription());
+            $this->getEntityManager()->flush();
+        }
+    }
 }

@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class User
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy:'AUTO')]
+    #[ORM\GeneratedValue(strategy:'SEQUENCE')]
     #[ORM\Column]
     private ?int $id = null;
 
