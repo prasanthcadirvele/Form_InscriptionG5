@@ -37,7 +37,7 @@ class GroupeTesteursController
      * Get all GroupeTesteurs.
      * @return JsonResponse
      */
-    #[Route("list", methods:"GET")]
+    #[Route("/list", methods:"GET")]
     public function getAllGroupeTesteurs(): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -57,7 +57,8 @@ class GroupeTesteursController
     #[Route("id/{id}", methods:"GET")]
     public function getGroupeTesteursById(int $id): JsonResponse
     {
-        // TODO: Implement JWT validation for user type
+        // TODO:
+         Implement JWT validation for user type
 
         // Retrieve GroupeTesteurs by ID and return it
         $groupeTesteurs = $this->groupeTesteursRepository->find($id);

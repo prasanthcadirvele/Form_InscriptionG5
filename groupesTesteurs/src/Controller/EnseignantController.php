@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Enseignant;
 use App\Repository\EtablissementRepository;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Repository\EnseignantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,16 +17,13 @@ class EnseignantController extends AbstractController
 {
     private $enseignantRepository;
     private $etablissementRepository;
-    private $mailer;
 
     public function __construct(
         EnseignantRepository $enseignantRepository,
         EtablissementRepository $etablissementRepository,
-        MailerInterface $mailer
     ) {
         $this->enseignantRepository = $enseignantRepository;
         $this->etablissementRepository = $etablissementRepository;
-        $this->mailer = $mailer;
     }
 
     public function validateEnseignantEntry($data)
@@ -65,22 +60,11 @@ class EnseignantController extends AbstractController
 
         $this->enseignantRepository->save($enseignant);
 
-        // Send registration email
+        //TO DO : Send registration email
         $this->sendRegistrationEmail($enseignant, $data['email']);
 
         return $this->json(['message' => 'Registration email sent'], Response::HTTP_OK);
-    }
-
-    private function sendRegistrationEmail(Enseignant $enseignant, string $toEmail): void
-    {
-        $email = (new Email())
-            ->from('your_email@example.com') // email here
-            ->to($toEmail)
-            ->subject('Confirmation of Registration/')
-            ->html($this->renderView('emails/registration.html.twig', ['enseignant' => $enseignant]));
-
-        $this->mailer->send($email);
-    }
+    }   
 
     #[Route("/set-password/{token}", name: "set_password", methods: "POST")]
     // TO DO : Method not working

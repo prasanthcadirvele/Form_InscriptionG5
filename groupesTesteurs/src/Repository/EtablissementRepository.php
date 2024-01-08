@@ -16,8 +16,12 @@ class EtablissementRepository extends ServiceEntityRepository
     public function save(Etablissement $etablissement): void
     {
         $entityManager = $this->getEntityManager();
-        $entityManager->persist($etablissement);
-        $entityManager->flush();
+        try {
+            $entityManager->persist($etablissement);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }  
     }
 
     public function delete(int $id): void
