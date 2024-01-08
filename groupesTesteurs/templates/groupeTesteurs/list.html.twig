@@ -1,0 +1,85 @@
+{# templates/groupeTesteurs/list.html.twig #}
+
+{% extends 'index.html.twig' %}
+
+{% block title %}Liste des Groupe Testeurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des Groupe Testeurs</h1>
+
+    {# Search form with input and button #}
+    <form id="searchForm">
+        <label for="search">Rechercher :</label>
+        <input type="text" id="search" name="search">
+        <button type="button" onclick="performSearch()">Rechercher</button>
+    </form>
+
+    {# Table to display Groupe Testeurs details #}
+    <table id="groupeTesteursTable">
+        <!-- Table header -->
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Label</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <!-- Table body will be populated using JavaScript -->
+        <tbody id="groupeTesteursTableBody"></tbody>
+    </table>
+
+    {# Add link to add new Groupe Testeur #}
+    <a href="{{ path('groupe_testeurs_add') }}">Ajouter</a>
+
+    <script>
+        function performSearch() {
+            // Get the search query from the input field
+            const searchQuery = document.getElementById('search').value;
+
+            // Use AJAX to fetch filtered data
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Parse the JSON response
+                        const responseData = JSON.parse(xhr.responseText);
+
+                        // Update the table with filtered data
+                        updateTable(responseData.groupeTesteurs);
+                    } else {
+                        // Handle errors
+                        console.error('Search request failed');
+                    }
+                }
+            };
+
+            // Send a GET request to the Symfony endpoint with the search query
+            xhr.open('GET', `{{ path('groupe_testeurs_list') }}?search=${searchQuery}`, true);
+            xhr.send();
+        }
+
+        function updateTable(groupeTesteurs) {
+            // Get the table body element
+            const tableBody = document.getElementById('groupeTesteursTableBody');
+
+            // Clear existing rows
+            tableBody.innerHTML = '';
+
+            // Iterate over the filtered data and add rows to the table
+            groupeTesteurs.forEach(function (groupeTesteur) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${groupeTesteur.id}</td>
+                    <td>${groupeTesteur.groupTesteurLabel}</td>
+                    <td>${groupeTesteur.groupTesteurDescription}</td>
+                    <td>
+                        <a href="{{ path('groupe_testeurs_delete', {'id': groupeTesteur.id}) }}">Supprimer</a>
+                        <a href="{{ path('groupe_testeurs_edit', {'id': groupeTesteur.id}) }}">Modifier</a>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    </script>
+{% endblock %}

@@ -5,11 +5,10 @@ namespace App\Controller;
 use App\Entity\GroupeTesteurs;
 use App\Repository\GroupeTesteursRepository;
 use DateTime;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class GroupeTesteursController
@@ -19,9 +18,19 @@ use Symfony\Component\Routing\Attribute\Route;
  * JWT authentication is assumed to be implemented, and user access to endpoints is based on user types defined as
  * global constants. User type information is extracted from the JWT token in the request header.
  */
+
 #[Route("/groupeTesteurs")]
 class GroupeTesteursController extends AbstractController
 {
+    #[Route("/list", name: "groupe_testeurs_list", methods: ["GET"])]
+    public function list(): Response
+    {
+        $groupeTesteurs = $this->groupeTesteursRepository->findAll();
+
+        return $this->render('groupeTesteurs/list.html.twig', [
+            'groupeTesteurs' => $groupeTesteurs,
+        ]);
+    }
 
     private GroupeTesteursRepository $groupeTesteursRepository;
 
@@ -45,9 +54,10 @@ class GroupeTesteursController extends AbstractController
 
         // Retrieve and return all GroupeTesteurs
         $groupeTesteurs = $this->groupeTesteursRepository->findAll();
-        return $this->json(['groupeTesteurs' => $groupeTesteurs], Response::HTTP_OK);
-
         // TODO : RETURN TO LIST OF GROUPE TESTEURS PAGE
+
+        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
+
     }
 
     /**
@@ -55,11 +65,10 @@ class GroupeTesteursController extends AbstractController
      * @param int $id
      * @return JsonResponse
      */
-    #[Route("/id/{id}", methods:"GET")]
+    #[Route("id/{id}", methods:"GET")]
     public function getGroupeTesteursById(int $id): JsonResponse
     {
-        // TODO:
-         Implement JWT validation for user type
+        // TODO: Implement JWT validation for user type
 
         // Retrieve GroupeTesteurs by ID and return it
         $groupeTesteurs = $this->groupeTesteursRepository->find($id);
@@ -71,6 +80,8 @@ class GroupeTesteursController extends AbstractController
         return $this->json(['groupeTesteurs' => $groupeTesteurs], Response::HTTP_OK);
 
         // TODO : RETURN TO GROUPE TESTEURS PAGE
+        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
+
     }
 
     /**
@@ -78,7 +89,7 @@ class GroupeTesteursController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    #[Route("/", methods:"POST")]
+    #[Route("", methods:"POST")]
     public function createGroupeTesteurs(Request $request): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -98,6 +109,8 @@ class GroupeTesteursController extends AbstractController
         return $this->json(['message' => 'GroupeTesteurs added successfully'], Response::HTTP_OK);
 
         // TODO: Redirect to list of groupe testeurs page
+        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
+
     }
 
     /**
@@ -133,6 +146,8 @@ class GroupeTesteursController extends AbstractController
         return $this->json(['message' => 'GroupeTesteurs updated successfully']);
 
         // TODO: Redirect to updated GroupeTesteurs page
+        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
+
     }
 
     /**
@@ -160,7 +175,10 @@ class GroupeTesteursController extends AbstractController
         return $this->json(['message' => 'The delete was unsuccessful'], Response::HTTP_BAD_REQUEST);
 
         // TODO: Check whether the delete was successful or not
+        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
+
     }
 
-
 }
+
+
