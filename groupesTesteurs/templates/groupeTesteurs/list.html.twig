@@ -70,14 +70,14 @@
             groupeTesteurs.forEach(function (groupeTesteur) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${groupeTesteur.id}</td>
-                    <td>${groupeTesteur.groupTesteurLabel}</td>
-                    <td>${groupeTesteur.groupTesteurDescription}</td>
-                    <td>
-                        <a href="{{ path('groupe_testeurs_delete', {'id': groupeTesteur.id}) }}">Supprimer</a>
-                        <a href="{{ path('groupe_testeurs_edit', {'id': groupeTesteur.id}) }}">Modifier</a>
-                    </td>
-                `;
+                        <td>${groupeTesteur.getId()}</td>
+                        <td>${groupeTesteur.getGroupTesteurLabel()}</td>
+                        <td>${groupeTesteur.getGroupTesteurDescription()}</td>
+                        <td>
+                            <a href="/groupe_testeurs_delete/${groupeTesteur.getId()}">Supprimer</a>
+                            <a href="/groupe_testeurs_edit/${groupeTesteur.getId()}">Modifier</a>
+                        </td>
+                    `;
                 tableBody.appendChild(row);
             });
         }
