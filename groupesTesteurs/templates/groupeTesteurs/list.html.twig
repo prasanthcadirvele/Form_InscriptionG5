@@ -33,6 +33,31 @@
     <a href="{{ path('groupe_testeurs_add') }}">Ajouter</a>
 
     <script>
+        // Function to initialize the table with values
+        function initializeTable() {
+            // Use AJAX to fetch data for the initial table
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Parse the JSON response
+                        const responseData = JSON.parse(xhr.responseText);
+
+                        // Update the table with initial data
+                        updateTable(responseData.groupeTesteurs);
+                    } else {
+                        // Handle errors
+                        console.error('Initial data request failed');
+                    }
+                }
+            };
+
+            // Send a GET request to the Symfony endpoint
+            xhr.open('GET', `{{ path('groupe_testeurs_list') }}`, true);
+            xhr.send();
+        }
+
+        // Function to perform search
         function performSearch() {
             // Get the search query from the input field
             const searchQuery = document.getElementById('search').value;
@@ -59,6 +84,7 @@
             xhr.send();
         }
 
+        // Function to update the table
         function updateTable(groupeTesteurs) {
             // Get the table body element
             const tableBody = document.getElementById('groupeTesteursTableBody');
@@ -66,20 +92,23 @@
             // Clear existing rows
             tableBody.innerHTML = '';
 
-            // Iterate over the filtered data and add rows to the table
+            // Iterate over the data and add rows to the table
             groupeTesteurs.forEach(function (groupeTesteur) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                        <td>${groupeTesteur.getId()}</td>
-                        <td>${groupeTesteur.getGroupTesteurLabel()}</td>
-                        <td>${groupeTesteur.getGroupTesteurDescription()}</td>
-                        <td>
-                            <a href="/groupe_testeurs_delete/${groupeTesteur.getId()}">Supprimer</a>
-                            <a href="/groupe_testeurs_edit/${groupeTesteur.getId()}">Modifier</a>
-                        </td>
-                    `;
+                    <td>${groupeTesteur.getId()}</td>
+                    <td>${groupeTesteur.getGroupTesteurLabel()}</td>
+                    <td>${groupeTesteur.getGroupTesteurDescription()}</td>
+                    <td>
+                        <a href="/groupe_testeurs_delete/${groupeTesteur.getId()}">Supprimer</a>
+                        <a href="/groupe_testeurs_edit/${groupeTesteur.getId()}">Modifier</a>
+                    </td>
+                `;
                 tableBody.appendChild(row);
             });
         }
+
+        // Call initialization function when the page loads
+        window.onload = initializeTable;
     </script>
 {% endblock %}
