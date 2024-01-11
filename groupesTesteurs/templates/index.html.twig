@@ -1,33 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Symfony App{% endblock %}</title>
-</head>
-<body>
-    <nav>
-        <!-- Navigation bar content goes here -->
-        <ul>
-            <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ path('groupe_testeurs_list') }}">Groupe Testeurs</a></li>
-            <!-- Add more links as needed -->
-        </ul>
-    </nav>
+{% extends 'base.html.twig' %}
 
-    <header>
-        <!-- Header content goes here -->
-        <h1>Hello</h1>
-    </header>
+{% block title %}Generation 5{% endblock %}
 
-    <main>
-        <!-- Main content area for child templates -->
-        {% block body %}{% endblock %}
-    </main>
-
-    <footer>
-        <!-- Footer content goes here -->
-        <p>&copy; 2024 My Symfony App</p>
-    </footer>
-</body>
-</html>
+{% block body %}
+    <!-- Specific content for the home page goes here -->
+    <h1>Welcome to the Dashboard!</h1>
+{% endblock %}
