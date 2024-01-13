@@ -1,0 +1,21 @@
+{# templates/groupeTesteurs/add.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Add New Groupe Testeur{% endblock %}
+
+{% block body %}
+    <h1>Ajouter Un Groupe Testeur</h1>
+
+    <form method="post" action="{{ path('groupe_testeurs_create') }}">
+        <label for="groupTesteurLabel">Label:</label>
+        <input type="text" id="groupTesteurLabel" name="groupTesteurLabel" required>
+
+        <label for="groupTesteurDescription">Description:</label>
+        <textarea id="groupTesteurDescription" name="groupTesteurDescription" required></textarea>
+
+        <button type="submit">OK</button>
+    </form>
+
+    <a href="{{ path('groupe_testeurs_list') }}">Revenir a la list</a>
+{% endblock %}

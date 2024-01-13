@@ -90,7 +90,7 @@ class GroupeTesteursController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    #[Route("", methods:"POST")]
+    #[Route("/groupeTesteurs", name:"groupe_testeurs_add", methods:"POST")]
     public function createGroupeTesteurs(Request $request): JsonResponse
     {
         // TODO: Implement JWT validation for user type
