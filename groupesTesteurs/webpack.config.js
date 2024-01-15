@@ -75,6 +75,15 @@ Encore
     // requires WebpackEncoreBundle 1.4 or higher
     //.enableIntegrityHashes(Encore.isProduction())
 
+    .addStyleEntry('css/bootstrap-custom', 'bootstrap/dist/css/bootstrap.css')
+
+    .addEntry('bootstrap', 'bootstrap/dist/js/bootstrap.bundle.js')
+
+    .addEntry('datatables', 'datatables.net-bs4/css/dataTables.bootstrap4.css')
+
+
+
+
     
 ;
 
