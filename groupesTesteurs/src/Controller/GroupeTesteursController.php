@@ -20,35 +20,36 @@ use Symfony\Component\Routing\Annotation\Route;
  * global constants. User type information is extracted from the JWT token in the request header.
  */
 
-#[Route("/groupeTesteurs")]
-class GroupeTesteursController extends AbstractController
-{
-    #[Route("/list", name: "groupe_testeurs_list", methods: ["GET"])]
-    public function list(): Response
-    {
-        $groupeTesteurs = $this->groupeTesteursRepository->findAll();
-
-        return $this->render('groupeTesteurs/list.html.twig', [
-            'groupeTesteurs' => $groupeTesteurs,
-        ]);
-    }
-
-    private GroupeTesteursRepository $groupeTesteursRepository;
-
-    /**
-     * GroupeTesteursController constructor.
-     *
-     * @param GroupeTesteursRepository $groupeTesteursRepository
-     */
-    public function __construct(GroupeTesteursRepository $groupeTesteursRepository) {
-        $this->groupeTesteursRepository = $groupeTesteursRepository;
-    }
+ #[Route("/groupeTesteurs")]
+ class GroupeTesteursController extends AbstractController
+ {
+     private GroupeTesteursRepository $groupeTesteursRepository;
+ 
+     /**
+      * GroupeTesteursController constructor.
+      *
+      * @param GroupeTesteursRepository $groupeTesteursRepository
+      */
+     public function __construct(GroupeTesteursRepository $groupeTesteursRepository)
+     {
+         $this->groupeTesteursRepository = $groupeTesteursRepository;
+     }
+ 
+     #[Route("/list", name: "groupe_testeurs_list", methods: ["GET"])]
+     public function list(): Response
+     {
+         $groupeTesteurs = $this->groupeTesteursRepository->findAll();
+ 
+         return $this->render('groupeTesteurs/list.html.twig', [
+             'groupeTesteurs' => $groupeTesteurs,
+         ]);
+     }
 
     /**
      * Get all GroupeTesteurs.
      * @return JsonResponse
      */
-    #[Route("/list", methods:"GET")]
+    #[Route("/list", methods: ["GET"])]
     public function getAllGroupeTesteurs(): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -66,7 +67,7 @@ class GroupeTesteursController extends AbstractController
      * @param int $id
      * @return JsonResponse
      */
-    #[Route("id/{id}", methods:"GET")]
+    #[Route("id/{id}", methods:["GET"])]
     public function getGroupeTesteursById(int $id): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -81,8 +82,6 @@ class GroupeTesteursController extends AbstractController
         return $this->json(['groupeTesteurs' => $groupeTesteurs], Response::HTTP_OK);
 
         // TODO : RETURN TO GROUPE TESTEURS PAGE
-        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
-
     }
 
     /**
@@ -90,7 +89,7 @@ class GroupeTesteursController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    #[Route("/groupeTesteurs", name:"groupe_testeurs_add", methods:"POST")]
+    #[Route("/groupeTesteurs", name:"groupe_testeurs_add", methods:["POST"])]
     public function createGroupeTesteurs(Request $request): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -110,7 +109,7 @@ class GroupeTesteursController extends AbstractController
         return $this->json(['message' => 'GroupeTesteurs added successfully'], Response::HTTP_OK);
 
         // TODO: Redirect to list of groupe testeurs page
-        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
+        return $this->redirectToRoute('groupe_testeurs_list');
 
     }
 
@@ -120,7 +119,7 @@ class GroupeTesteursController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    #[Route("/id/{id}", methods:"PUT")]
+    #[Route("/id/{id}", methods:["PUT"])]
     public function updateGroupeTesteurs(int $id, Request $request): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -156,7 +155,7 @@ class GroupeTesteursController extends AbstractController
      * @param int $id
      * @return JsonResponse
      */
-    #[Route("/id/{id}", methods:"DELETE")]
+    #[Route("/id/{id}", methods:["DELETE"])]
     public function deleteGroupeTesteurs(int $id): JsonResponse
     {
         // TODO: Implement JWT validation for user type

@@ -1,0 +1,22 @@
+{# templates/groupTesteurs/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Groupe Testeur{% endblock %}
+
+{% block body %}
+    <h1>Modifier Groupe Testeur</h1>
+
+    {# Form to edit Groupe Testeur #}
+    <form method="post" action="{{ path('groupe_testeurs_update', {'id': groupeTesteur.id}) }}">
+        {{ form_start(editForm) }}
+        {{ form_widget(editForm) }}
+
+        <button type="submit">Sauvegarder</button>
+
+        {{ form_end(editForm) }}
+    </form>
+
+    {# Link to go back to the list of Groupe Testeurs #}
+    <a href="{{ path('groupe_testeurs_list') }}">Revenir à la liste</a>
+{% endblock %}
