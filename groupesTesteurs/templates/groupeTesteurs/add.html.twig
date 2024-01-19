@@ -2,12 +2,12 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Add New Groupe Testeur{% endblock %}
+{% block title %}Ajouter Groupe Testeur{% endblock %}
 
 {% block body %}
     <h1>Ajouter Un Groupe Testeur</h1>
 
-    <form method="post" action="{{ path('groupe_testeurs_create') }}">
+    <form method="post" action="{{ path('groupe_testeurs_add') }}">
         <label for="groupTesteurLabel">Label:</label>
         <input type="text" id="groupTesteurLabel" name="groupTesteurLabel" required>
 

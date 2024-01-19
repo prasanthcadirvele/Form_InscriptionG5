@@ -92,6 +92,10 @@ use Symfony\Component\Routing\Annotation\Route;
     #[Route("/groupeTesteurs", name:"groupe_testeurs_add", methods:["POST"])]
     public function createGroupeTesteurs(Request $request): JsonResponse
     {
+
+         // Inspect the request
+        $controller = $request->attributes->get('_controller');
+        dump($controller);
         // TODO: Implement JWT validation for user type
 
         $data = json_decode($request->getContent(), true);
