@@ -7,26 +7,48 @@
 {% block body %}
     <h1>Liste des Groupe Testeurs</h1>
 
-    {# Search form with input and button, add here if needed #}
-    
+    {# Add button #}
+    <div class="d-flex justify-content-between mb-3">
+
+        {# Empty space to push the button to the right #}
+        <div></div>
+
+        {# Add link to add new Groupe Testeur #}
+        <a href="{{ path('groupe_testeurs_add') }}" class="btn btn-primary">Ajouter</a>
+    </div>
 
     {# Table to display Groupe Testeurs details #}
     <table id="groupeTesteursTable" class="table">
         <!-- Table header -->
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Label</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Label</th>
+            <th class="text-center">Actions</th>
+        </tr>
         </thead>
         <!-- Table body will be populated using JavaScript -->
-        <tbody id="groupeTesteursTableBody"></tbody>
+        <tbody id="groupeTesteursTableBody">
+        {% for groupeTesteur in groupeTesteurs %}
+            <tr>
+                <td>{{ groupeTesteur.getId() }}</td>
+                <td>{{ groupeTesteur.getGroupTesteurLabel() }}</td>
+                <!-- Add more columns as needed -->
+                <td class="text-center">
+                    <!-- Add Edit and Delete buttons with appropriate routes -->
+                    <a href="{{ path('groupe_testeurs_delete', {'id': groupeTesteur.getId()}) }}" class="btn btn-secondary btn-sm">Edit</a>
+                    <a href="{{ path('groupe_testeurs_delete', {'id': groupeTesteur.getId()}) }}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
 
-    {# Add link to add new Groupe Testeur #}
-    <a href="{{ path('groupe_testeurs_add') }}">Ajouter</a>
+    {# Pagination control #}
+    <div class="mb-3">
+        <button class="btn btn-secondary" onclick="$('#groupeTesteursTable').DataTable().page('previous').draw(false)">Previous</button>
+        <button class="btn btn-secondary" onclick="$('#groupeTesteursTable').DataTable().page('next').draw(false)">Next</button>
+    </div>
 
     <script>
         // Function to initialize the table with values
@@ -35,52 +57,12 @@
             $('#groupeTesteursTable').DataTable({
                 // Your DataTables configuration options go here
             });
-
-            // Fetch and update data for the initial table
-            fetchDataAndUpdateTable();
         }
 
         // Function to perform search
         function performSearch() {
             // Trigger DataTables search
             $('#groupeTesteursTable').DataTable().search($('#search').val()).draw();
-        }
-
-        // Function to fetch and update data for the table
-        function fetchDataAndUpdateTable() {
-            // Use AJAX to fetch data for the initial table
-            $.ajax({
-                url: '{{ path('groupe_testeurs_list') }}',
-                method: 'GET',
-                success: function(response) {
-                    // Update the DataTable with the fetched data
-                    updateTable(response.groupeTesteurs);
-                },
-                error: function() {
-                    // Handle errors
-                    console.error('Initial data request failed');
-                }
-            });
-        }
-
-        // Function to update the table
-        function updateTable(groupeTesteurs) {
-            // Get the DataTable instance
-            const dataTable = $('#groupeTesteursTable').DataTable();
-
-            // Clear existing rows
-            dataTable.clear();
-
-            // Iterate over the data and add rows to the table
-            groupeTesteurs.forEach(function (groupeTesteur) {
-                dataTable.row.add([
-                    groupeTesteur.id,
-                    groupeTesteur.groupTesteurLabel,
-                    groupeTesteur.groupTesteurDescription,
-                    `<a href="/groupe_testeurs_delete/${groupeTesteur.id}">Supprimer</a>
-                    <a href="/groupe_testeurs_edit/${groupeTesteur.id}">Modifier</a>`
-                ]).draw();
-            });
         }
 
         // Call initialization function when the page loads

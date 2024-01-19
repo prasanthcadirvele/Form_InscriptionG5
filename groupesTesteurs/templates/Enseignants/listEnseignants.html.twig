@@ -7,28 +7,61 @@
 {% block body %}
     <h1>Liste des Enseignants</h1>
 
-    {# Search form with input and button, add here if needed #}
-    
+    {# Add button #}
+    <div class="d-flex justify-content-between mb-3">
+
+        {# Empty space to push the button to the right #}
+        <div></div>
+
+        {# Add link to add new Groupe Testeur #}
+        <a href="{{ path('enseignant_add') }}" class="btn btn-primary">Ajouter</a>
+    </div>
 
     {# Table to display Enseignants details #}
     <table id="enseignantsTable" class="table">
         <!-- Table header -->
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Etablissement</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Etablissement</th>
+            <th>Statut de validation</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <!-- Table body will be populated using JavaScript -->
-        <tbody id="enseignantsTableBody"></tbody>
+        <tbody id="enseignantsTableBody">
+        {% for enseignant in enseignants %}
+            <tr>
+                <td>{{ enseignant.getId() }}</td>
+                <td>{{ enseignant.getFirstName() }}</td>
+                <td>{{ enseignant.getLastName() }}</td>
+                <td>{{ enseignant.getEmail() }}</td>
+                <td>{{ enseignant.getEtablissement().getEtablissementName() }}</td>
+                <td>
+                    {% if enseignant.getIsValidated() %}
+                        <span class="badge bg-success text-light">Validé</span>
+                    {% else %}
+                        <span class="badge bg-danger text-light">Non Validé</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('enseignant_delete', {'id': enseignant.getId()}) }}" class="btn btn-secondary btn-sm">Edit</a>
+                    <a href="{{ path('enseignant_delete', {'id': enseignant.getId()}) }}" class="btn btn-danger btn-sm">Delete</a>
+                    <button class="btn btn-primary btn-sm" onclick="validateEnseignant({{ enseignant.getId() }})">Validate</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
 
-    {# Add link to add new Enseignant #}
-    <a href="{{ path('enseignant_add') }}">Ajouter</a>
+    {# Pagination control #}
+    <div class="mb-3">
+        <button class="btn btn-secondary" onclick="$('#enseignantsTable').DataTable().page('previous').draw(false)">Previous</button>
+        <button class="btn btn-secondary" onclick="$('#enseignantsTable').DataTable().page('next').draw(false)">Next</button>
+    </div>
 
     <script>
         // Function to initialize the table with values
@@ -37,9 +70,6 @@
             $('#enseignantsTable').DataTable({
                 // Your DataTables configuration options go here
             });
-
-            // Fetch and update data for the initial table
-            fetchDataAndUpdateTable();
         }
 
         // Function to perform search
@@ -48,43 +78,12 @@
             $('#enseignantsTable').DataTable().search($('#search').val()).draw();
         }
 
-        // Function to fetch and update data for the table
-        function fetchDataAndUpdateTable() {
-            // Use AJAX to fetch data for the initial table
-            $.ajax({
-                url: '{{ path('enseignant_list') }}',
-                method: 'GET',
-                success: function(response) {
-                    // Update the DataTable with the fetched data
-                    updateTable(response.enseignants);
-                },
-                error: function() {
-                    // Handle errors
-                    console.error('Initial data request failed');
-                }
-            });
-        }
-
-        // Function to update the table
-        function updateTable(enseignants) {
-            // Get the DataTable instance
-            const dataTable = $('#enseignantsTable').DataTable();
-
-            // Clear existing rows
-            dataTable.clear();
-
-            // Iterate over the data and add rows to the table
-            enseignants.forEach(function (enseignant) {
-                dataTable.row.add([
-                    enseignant.id,
-                    enseignant.firstName,
-                    enseignant.lastName,
-                    enseignant.email,
-                    enseignant.etablissement.name, // Assuming there is a 'name' property in the Etablissement entity
-                    `<a href="/enseignant_delete/${enseignant.id}">Supprimer</a>
-                    <a href="/enseignant_edit/${enseignant.id}">Modifier</a>`
-                ]).draw();
-            });
+        // Function to validate Enseignant
+        function validateEnseignant(enseignantId) {
+            // Implement the logic to validate the Enseignant based on the enseignantId
+            // You can use AJAX to send a request to your server for validation
+            // After validation, you may want to reload the table or update the row accordingly
+            alert('Validation logic goes here for Enseignant with ID: ' + enseignantId);
         }
 
         // Call initialization function when the page loads

@@ -34,7 +34,11 @@ class EnseignantController extends AbstractController
     #[Route("/list", name: "enseignant_list_page", methods: "GET")]
     public function listEnseignantPage(): Response
     {
-        return $this->render('Enseignants/listEnseignants.html.twig');
+        $enseignants = $this->enseignantRepository->findAll();
+
+        return $this->render('Enseignants/listEnseignants.html.twig', [
+            'enseignants' => $enseignants,
+        ]);
     }
 
     #[Route("/", name: "enseignant_add", methods: "POST")]

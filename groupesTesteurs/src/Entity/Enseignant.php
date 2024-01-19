@@ -18,7 +18,9 @@ class Enseignant extends User {
 
     protected $user_type = 'enseignant';
 
-    #[ORM\ManyToOne(targetEntity: Etablissement::class, inversedBy: 'enseignant', fetch: 'EAGER')]
+    private bool $isValidated;
+
+    #[ORM\ManyToOne(targetEntity: Etablissement::class, inversedBy: 'enseignants', fetch: 'EAGER')]
     private Etablissement $etablissement;
 
     #[ORM\OneToMany(mappedBy: 'enseignant', targetEntity: Registration::class, fetch: 'EAGER')]
