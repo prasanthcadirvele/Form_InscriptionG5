@@ -159,7 +159,7 @@ use Symfony\Component\Routing\Annotation\Route;
      * @param int $id
      * @return JsonResponse
      */
-    #[Route("/id/{id}", methods:["DELETE"])]
+    #[Route("/id/{id}", name:"groupe_testeurs_delete", methods:["DELETE"])]
     public function deleteGroupeTesteurs(int $id): JsonResponse
     {
         // TODO: Implement JWT validation for user type
