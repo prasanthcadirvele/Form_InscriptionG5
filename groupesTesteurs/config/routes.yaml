@@ -3,8 +3,3 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-
-groupe_testeurs_add:
-    path: /groupeTesteurs
-    controller: 'App\Controller\GroupeTesteursController::createGroupeTesteurs'
-    methods: ['POST']

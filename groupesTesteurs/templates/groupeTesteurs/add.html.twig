@@ -2,20 +2,17 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter Groupe Testeur{% endblock %}
+{% block title %}Add Groupe Testeurs{% endblock %}
 
 {% block body %}
-    <h1>Ajouter Un Groupe Testeur</h1>
+    <h1>Add Groupe Testeurs</h1>
 
-    <form method="post" action="{{ path('groupe_testeurs_add') }}">
-        <label for="groupTesteurLabel">Label:</label>
-        <input type="text" id="groupTesteurLabel" name="groupTesteurLabel" required>
-
-        <label for="groupTesteurDescription">Description:</label>
-        <textarea id="groupTesteurDescription" name="groupTesteurDescription" required></textarea>
-
-        <button type="submit">OK</button>
-    </form>
-
-    <a href="{{ path('groupe_testeurs_list') }}">Revenir a la list</a>
+    {# Display form errors if any #}
+    {{ form_start(form) }}
+    {{ form_row(form.groupTesteurLabel) }}
+    {{ form_row(form.groupTesteurDescription) }}
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add Groupe Testeurs</button>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}
