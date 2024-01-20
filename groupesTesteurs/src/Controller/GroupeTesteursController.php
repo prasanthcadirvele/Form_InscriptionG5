@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\GroupeTesteurs;
+use App\Form\GroupeTesteursType;
 use App\Repository\GroupeTesteursRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,22 +46,24 @@ use Symfony\Component\Routing\Annotation\Route;
          ]);
      }
 
-    /**
-     * Get all GroupeTesteurs.
-     * @return JsonResponse
-     */
-    #[Route("/list", methods: ["GET"])]
-    public function getAllGroupeTesteurs(): JsonResponse
-    {
-        // TODO: Implement JWT validation for user type
+     /**
+      * Display the form to add a new GroupeTesteurs.
+      * @return Response
+      */
+     #[Route("/add", name: "groupe_testeurs_add", methods: ["GET"])]
+     public function showGroupeTesteursForm(): Response
+     {
+         // Create a new GroupeTesteurs instance
+         $groupeTesteurs = new GroupeTesteurs();
 
-        // Retrieve and return all GroupeTesteurs
-        $groupeTesteurs = $this->groupeTesteursRepository->findAll();
-        // TODO : RETURN TO LIST OF GROUPE TESTEURS PAGE
+         // Create a form to handle the GroupeTesteurs data
+         $form = $this->createForm(GroupeTesteursType::class, $groupeTesteurs);
 
-        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
-
-    }
+         // Render the form template
+         return $this->render('groupeTesteurs/add.html.twig', [
+             'form' => $form->createView(),
+         ]);
+     }
 
     /**
      * Get GroupeTesteurs by ID.
@@ -84,40 +87,39 @@ use Symfony\Component\Routing\Annotation\Route;
         // TODO : RETURN TO GROUPE TESTEURS PAGE
     }
 
-    /**
-     * Create a new GroupeTesteurs.
-     * @param Request $request
-     * @return JsonResponse
-     */
-    #[Route("/groupeTesteurs", name:"groupe_testeurs_add", methods:["POST"])]
-    public function createGroupeTesteurs(Request $request): JsonResponse
-    {
+     /**
+      * Create a new GroupeTesteurs.
+      * @param Request $request
+      * @return Response
+      */
+     #[Route("/add", name:"groupe_testeurs_create", methods:["POST"])]
+     public function createGroupeTesteurs(Request $request): Response
+     {
+         // Create a new GroupeTesteurs instance
+         $groupeTesteurs = new GroupeTesteurs();
 
-         // Inspect the request
-        $controller = $request->attributes->get('_controller');
-        dump($controller);
-        // TODO: Implement JWT validation for user type
+         // Create a form to handle the GroupeTesteurs data
+         $form = $this->createForm(GroupeTesteursType::class, $groupeTesteurs);
 
-        $data = json_decode($request->getContent(), true);
+         // Handle form submission
+         $form->handleRequest($request);
 
-        // TODO: Validate data before insertion
+         if ($form->isSubmitted() && $form->isValid()) {
+             // Save the GroupeTesteurs to the database
+             $groupeTesteurs->setCreatedAt(new \DateTime());
+             $this->groupeTesteursRepository->save($groupeTesteurs);
+             // Redirect to the list of groupe testeurs page
+             return $this->redirectToRoute('groupe_testeurs_list');
+         }
 
-        // Create a new GroupeTesteurs and save it
-        $groupeTesteurs = new GroupeTesteurs();
-        $groupeTesteurs->setGroupTesteurLabel($data['groupTesteurLabel']);
-        $groupeTesteurs->setGroupTesteurDescription($data['groupTesteurDescription']);
-        $groupeTesteurs->setCreatedAt(new DateTime());
+         // Render the form template
+         return $this->render('groupeTesteurs/add.html.twig', [
+             'form' => $form->createView(),
+         ]);
+     }
 
-        $this->groupeTesteursRepository->save($groupeTesteurs);
 
-        return $this->json(['message' => 'GroupeTesteurs added successfully'], Response::HTTP_OK);
-
-        // TODO: Redirect to list of groupe testeurs page
-        return $this->redirectToRoute('groupe_testeurs_list');
-
-    }
-
-    /**
+     /**
      * Update an existing GroupeTesteurs.
      * @param int $id
      * @param Request $request
