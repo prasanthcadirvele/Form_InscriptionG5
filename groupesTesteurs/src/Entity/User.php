@@ -6,19 +6,19 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * isValidated attribute is missing from the User object, use the class diagram to construct classes
+ * @ORM\Entity
+ * @ORM\Table(name="`user`")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="user_type", type="string")
+ * @ORM\DiscriminatorMap({"enseignant" = "Enseignant"})
  */
-
-#[ORM\Entity]
-#[ORM\Table(name: '`user`')]
-#[ORM\InheritanceType("SINGLE_TABLE")]
-#[ORM\DiscriminatorColumn(name: "user_type", type: "string")]
-
 abstract class User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy:'SEQUENCE')]
-    #[ORM\Column]
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\Column
+     */
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

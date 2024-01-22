@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\GroupeTesteurs;
 use App\Repository\GroupeTesteursRepository;
+use App\Repository\EnseignantRepository;
+use App\Repository\RegistrationRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,17 +25,26 @@ use Symfony\Component\Routing\Annotation\Route;
  #[Route("/groupeTesteurs")]
  class GroupeTesteursController extends AbstractController
  {
-     private GroupeTesteursRepository $groupeTesteursRepository;
-     
+    private GroupeTesteursRepository $groupeTesteursRepository;
+    private EnseignantRepository $enseignantRepository;
+    private RegistrationRepository $registrationRepository;
  
      /**
       * GroupeTesteursController constructor.
       *
       * @param GroupeTesteursRepository $groupeTesteursRepository
+      * @param EnseignantRepository $enseignantRepository
+      * @param RegistrationRepository $registrationRepository
       */
-     public function __construct(GroupeTesteursRepository $groupeTesteursRepository)
+     public function __construct(
+        GroupeTesteursRepository $groupeTesteursRepository,
+        EnseignantRepository $enseignantRepository,
+        RegistrationRepository $registrationRepository    
+        )
      {
          $this->groupeTesteursRepository = $groupeTesteursRepository;
+         $this->enseignantRepository = $enseignantRepository;
+         $this->registrationRepository = $registrationRepository;
      }
  
      #[Route("/list", name: "groupe_testeurs_list", methods: ["GET"])]
@@ -156,7 +167,7 @@ use Symfony\Component\Routing\Annotation\Route;
      * @param int $id
      * @return JsonResponse
      */
-    #[Route("/id/{id}", methods:["DELETE"])]
+    #[Route("/id/{id}", name: "groupe_testeurs_delete", methods:["DELETE"])]
     public function deleteGroupeTesteurs(int $id): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -192,7 +203,7 @@ use Symfony\Component\Routing\Annotation\Route;
         // Retrieve GroupeTesteurs by ID and associated enseignants
         
         $groupeTesteurs = $this->groupeTesteursRepository->find($id);
-        
+
         if (!$groupeTesteurs) {
         // Handle GroupeTesteurs not found
            throw $this->createNotFoundException('GroupeTesteurs not found');
@@ -200,7 +211,7 @@ use Symfony\Component\Routing\Annotation\Route;
         
         // Fetch enseignants associated with this GroupeTesteurs
         
-        $enseignants = $this->EnseignantRepository->findByGroupeTesteurs($groupeTesteurs);
+        $enseignants = $this->registrationRepository->findByGroupeTesteurs($groupeTesteurs);
         
         // Render a view template with detailed information
            return $this->render('groupeTesteurs/view.html.twig', [
