@@ -35,7 +35,8 @@
                 <td>{{ groupeTesteur.getGroupTesteurLabel() }}</td>
                 <!-- Add more columns as needed -->
                 <td class="text-center">
-                    <!-- Add Edit and Delete buttons with appropriate routes -->
+                    <!-- Add View, Edit and Delete buttons with appropriate routes -->
+                    <a href="{{ path('groupe_testeurs_view', {'id': groupeTesteur.getId()}) }}" class="btn btn-secondary btn-sm">View</a>
                     <a href="{{ path('groupe_testeurs_delete', {'id': groupeTesteur.getId()}) }}" class="btn btn-secondary btn-sm">Edit</a>
                     <a href="{{ path('groupe_testeurs_delete', {'id': groupeTesteur.getId()}) }}" class="btn btn-danger btn-sm">Delete</a>
                 </td>

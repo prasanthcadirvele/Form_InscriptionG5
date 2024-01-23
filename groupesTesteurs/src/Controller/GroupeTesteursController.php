@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\GroupeTesteurs;
-use App\Form\GroupeTesteursType;
 use App\Repository\GroupeTesteursRepository;
+use App\Repository\EnseignantRepository;
+use App\Repository\RegistrationRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,16 +25,26 @@ use Symfony\Component\Routing\Annotation\Route;
  #[Route("/groupeTesteurs")]
  class GroupeTesteursController extends AbstractController
  {
-     private GroupeTesteursRepository $groupeTesteursRepository;
+    private GroupeTesteursRepository $groupeTesteursRepository;
+    private EnseignantRepository $enseignantRepository;
+    private RegistrationRepository $registrationRepository;
  
      /**
       * GroupeTesteursController constructor.
       *
       * @param GroupeTesteursRepository $groupeTesteursRepository
+      * @param EnseignantRepository $enseignantRepository
+      * @param RegistrationRepository $registrationRepository
       */
-     public function __construct(GroupeTesteursRepository $groupeTesteursRepository)
+     public function __construct(
+        GroupeTesteursRepository $groupeTesteursRepository,
+        EnseignantRepository $enseignantRepository,
+        RegistrationRepository $registrationRepository    
+        )
      {
          $this->groupeTesteursRepository = $groupeTesteursRepository;
+         $this->enseignantRepository = $enseignantRepository;
+         $this->registrationRepository = $registrationRepository;
      }
  
      #[Route("/list", name: "groupe_testeurs_list", methods: ["GET"])]
@@ -46,24 +57,22 @@ use Symfony\Component\Routing\Annotation\Route;
          ]);
      }
 
-     /**
-      * Display the form to add a new GroupeTesteurs.
-      * @return Response
-      */
-     #[Route("/add", name: "groupe_testeurs_add", methods: ["GET"])]
-     public function showGroupeTesteursForm(): Response
-     {
-         // Create a new GroupeTesteurs instance
-         $groupeTesteurs = new GroupeTesteurs();
+    /**
+     * Get all GroupeTesteurs.
+     * @return JsonResponse
+     */
+    #[Route("/list", methods: ["GET"])]
+    public function getAllGroupeTesteurs(): JsonResponse
+    {
+        // TODO: Implement JWT validation for user type
 
-         // Create a form to handle the GroupeTesteurs data
-         $form = $this->createForm(GroupeTesteursType::class, $groupeTesteurs);
+        // Retrieve and return all GroupeTesteurs
+        $groupeTesteurs = $this->groupeTesteursRepository->findAll();
+        // TODO : RETURN TO LIST OF GROUPE TESTEURS PAGE
 
-         // Render the form template
-         return $this->render('groupeTesteurs/add.html.twig', [
-             'form' => $form->createView(),
-         ]);
-     }
+        return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
+
+    }
 
     /**
      * Get GroupeTesteurs by ID.
@@ -87,39 +96,36 @@ use Symfony\Component\Routing\Annotation\Route;
         // TODO : RETURN TO GROUPE TESTEURS PAGE
     }
 
-     /**
-      * Create a new GroupeTesteurs.
-      * @param Request $request
-      * @return Response
-      */
-     #[Route("/add", name:"groupe_testeurs_create", methods:["POST"])]
-     public function createGroupeTesteurs(Request $request): Response
-     {
-         // Create a new GroupeTesteurs instance
-         $groupeTesteurs = new GroupeTesteurs();
+    /**
+     * Create a new GroupeTesteurs.
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[Route("/groupeTesteurs", name:"groupe_testeurs_add", methods:["POST"])]
+    public function createGroupeTesteurs(Request $request): JsonResponse
+    {
+        // TODO: Implement JWT validation for user type
 
-         // Create a form to handle the GroupeTesteurs data
-         $form = $this->createForm(GroupeTesteursType::class, $groupeTesteurs);
+        $data = json_decode($request->getContent(), true);
 
-         // Handle form submission
-         $form->handleRequest($request);
+        // TODO: Validate data before insertion
 
-         if ($form->isSubmitted() && $form->isValid()) {
-             // Save the GroupeTesteurs to the database
-             $groupeTesteurs->setCreatedAt(new \DateTime());
-             $this->groupeTesteursRepository->save($groupeTesteurs);
-             // Redirect to the list of groupe testeurs page
-             return $this->redirectToRoute('groupe_testeurs_list');
-         }
+        // Create a new GroupeTesteurs and save it
+        $groupeTesteurs = new GroupeTesteurs();
+        $groupeTesteurs->setGroupTesteurLabel($data['groupTesteurLabel']);
+        $groupeTesteurs->setGroupTesteurDescription($data['groupTesteurDescription']);
+        $groupeTesteurs->setCreatedAt(new DateTime());
 
-         // Render the form template
-         return $this->render('groupeTesteurs/add.html.twig', [
-             'form' => $form->createView(),
-         ]);
-     }
+        $this->groupeTesteursRepository->save($groupeTesteurs);
 
+        return $this->json(['message' => 'GroupeTesteurs added successfully'], Response::HTTP_OK);
 
-     /**
+        // TODO: Redirect to list of groupe testeurs page
+        return $this->redirectToRoute('groupe_testeurs_list');
+
+    }
+
+    /**
      * Update an existing GroupeTesteurs.
      * @param int $id
      * @param Request $request
@@ -161,7 +167,7 @@ use Symfony\Component\Routing\Annotation\Route;
      * @param int $id
      * @return JsonResponse
      */
-    #[Route("/id/{id}", name:"groupe_testeurs_delete", methods:["DELETE"])]
+    #[Route("/id/{id}", name: "groupe_testeurs_delete", methods:["DELETE"])]
     public function deleteGroupeTesteurs(int $id): JsonResponse
     {
         // TODO: Implement JWT validation for user type
@@ -183,6 +189,35 @@ use Symfony\Component\Routing\Annotation\Route;
         // TODO: Check whether the delete was successful or not
         return $this->render('groupeTesteurs/list.html.twig', ['groupeTesteurs' => $groupeTesteurs]);
 
+    }
+
+    /**
+     * View a GroupeTesteurs.
+     * @param int $id
+     * @return JsonResponse
+     */
+    #[Route("/view/{id}", name: "groupe_testeurs_view", methods: ["GET"])]
+    public function viewGroupeTesteurs(int $id): Response
+    {
+    
+        // Retrieve GroupeTesteurs by ID and associated enseignants
+        
+        $groupeTesteurs = $this->groupeTesteursRepository->find($id);
+
+        if (!$groupeTesteurs) {
+        // Handle GroupeTesteurs not found
+           throw $this->createNotFoundException('GroupeTesteurs not found');
+        }
+        
+        // Fetch enseignants associated with this GroupeTesteurs
+        
+        $registrations = $this->registrationRepository->findByGroupeTesteurs($groupeTesteurs);
+        
+        // Render a view template with detailed information
+           return $this->render('groupeTesteurs/view.html.twig', [
+            'groupeTesteurs' => $groupeTesteurs,
+            'registrations' => $registrations,
+        ]);
     }
 
 }
